@@ -13,10 +13,15 @@ export default function NavBar() {
                         size="sm"
                         variant={"outline"}
                         render={<Link href="/sign-in" />}
+                        nativeButton={false}
                     >
                         Login
                     </Button>
-                    <Button size="sm" render={<Link href="/sign-up" />}>
+                    <Button
+                        size="sm"
+                        render={<Link href="/sign-up" />}
+                        nativeButton={false}
+                    >
                         Get Taskify for free
                     </Button>
                 </div>

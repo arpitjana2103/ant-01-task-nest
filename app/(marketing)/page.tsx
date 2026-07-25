@@ -27,6 +27,7 @@ export default function MarketingPage() {
                     className={"mt-6"}
                     size={"lg"}
                     render={<Link href="/sign-up" />}
+                    nativeButton={false}
                 >
                     Get Taskify for free
                 </Button>
