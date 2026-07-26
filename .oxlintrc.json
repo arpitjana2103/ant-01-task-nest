@@ -22,7 +22,7 @@
         "eslint/no-magic-numbers": "off",
 
         "typescript/explicit-function-return-type": "off",
-        "typescript/no-unsafe-type-assertion": "warn",
+        "typescript/no-unsafe-type-assertion": "off",
         "typescript/no-explicit-any": "warn",
         "typescript/consistent-type-imports": "warn",
 

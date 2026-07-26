@@ -63,7 +63,7 @@ export default clerkMiddleware(async function (
 
     console.log(isLoggedIn, hasOrg);
 
-    if (isLoggedIn && !hasOrg) {
+    if (isLoggedIn && !hasOrg && pathname !== "/select-org") {
         return NextResponse.redirect(new URL("/select-org", req.url));
     }
 
