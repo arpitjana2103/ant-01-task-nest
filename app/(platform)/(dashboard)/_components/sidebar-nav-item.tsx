@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 
 type TSidebarNavItemProps = {
     organization: OrganizationResource;
-    onExpand: (id: string) => void;
     isActive: boolean;
     isExpanded: boolean;
 };
@@ -17,7 +16,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const SidebarNavItem = function ({
     organization,
-    onExpand,
     isActive,
     isExpanded,
 }: TSidebarNavItemProps) {
@@ -49,7 +47,6 @@ export const SidebarNavItem = function ({
     return (
         <AccordionItem value={organization.id} className="border-none">
             <AccordionTrigger
-                onClick={() => onExpand(organization.id)}
                 className={cn(
                     "flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline",
                     isActive && !isExpanded && "bg-sky-500/10 text-sky-700",

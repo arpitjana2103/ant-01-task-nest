@@ -28,7 +28,7 @@ export default function SideBar({ storageKey = "t-sidebar-state" }: TSidebarProp
     console.log("Active ORG ", activeOrg);
     // org_3H2hn04XperEWkARzCzgWU6F5G8
 
-    const defaultAccordionValue: string[] = Object.keys(expanded).reduce(function (
+    const accordionValue: string[] = Object.keys(expanded).reduce(function (
         acc: string[],
         key: string,
     ) {
@@ -38,8 +38,12 @@ export default function SideBar({ storageKey = "t-sidebar-state" }: TSidebarProp
         return acc;
     }, []);
 
-    const onExpand = function (id: string) {
-        setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+    const onValueChange = function (keys: string[]) {
+        const newExpanded: Record<string, boolean> = {};
+        keys.forEach((key) => {
+            newExpanded[key] = true;
+        });
+        setExpanded(newExpanded);
     };
 
     if (!isOrgLoaded || !isLoadedOrgList || userMemberships.isLoading) {
@@ -76,16 +80,20 @@ export default function SideBar({ storageKey = "t-sidebar-state" }: TSidebarProp
                 </Button>
             </div>
 
-            <Accordion multiple defaultValue={defaultAccordionValue} className="space-y-2">
+            <Accordion
+                multiple
+                value={accordionValue}
+                onValueChange={onValueChange}
+                className="space-y-2"
+            >
                 {userMemberships.data.map(function (orgMembership) {
                     const organization = orgMembership.organization;
                     return (
                         <SidebarNavItem
                             key={organization.id}
                             organization={organization}
-                            onExpand={onExpand}
                             isActive={organization.id === activeOrg?.id}
-                            isExpanded={expanded[organization.id]}
+                            isExpanded={expanded[organization.id] ?? false}
                         />
                     );
                 })}
