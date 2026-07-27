@@ -17,11 +17,7 @@ export default function NavBar() {
                     >
                         Login
                     </Button>
-                    <Button
-                        size="sm"
-                        render={<Link href="/sign-up" />}
-                        nativeButton={false}
-                    >
+                    <Button size="sm" render={<Link href="/sign-up" />} nativeButton={false}>
                         Get Taskify for free
                     </Button>
                 </div>

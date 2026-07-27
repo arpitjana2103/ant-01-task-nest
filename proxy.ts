@@ -43,17 +43,10 @@ import { NextResponse } from "next/server";
 ************************************************************************************/
 
 const isPublicRoute = function (pathname: string) {
-    return (
-        pathname === "/" ||
-        pathname.startsWith("/sign-in") ||
-        pathname.startsWith("/sign-up")
-    );
+    return pathname === "/" || pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
 };
 
-export default clerkMiddleware(async function (
-    auth: ClerkMiddlewareAuth,
-    req: NextRequest,
-) {
+export default clerkMiddleware(async function (auth: ClerkMiddlewareAuth, req: NextRequest) {
     const { userId, orgId } = await auth();
     const { pathname } = req.nextUrl;
 
@@ -61,16 +54,12 @@ export default clerkMiddleware(async function (
     const isLoggedIn = Boolean(userId);
     const visitingPublicRoute = isPublicRoute(pathname);
 
-    console.log(isLoggedIn, hasOrg);
-
     if (isLoggedIn && !hasOrg && pathname !== "/select-org") {
         return NextResponse.redirect(new URL("/select-org", req.url));
     }
 
     if (isLoggedIn && hasOrg && pathname === "/select-org") {
-        return NextResponse.redirect(
-            new URL(`/organization/${orgId}`, req.url),
-        );
+        return NextResponse.redirect(new URL(`/organization/${orgId}`, req.url));
     }
 
     if (isLoggedIn && visitingPublicRoute) {

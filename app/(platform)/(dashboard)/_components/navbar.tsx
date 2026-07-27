@@ -11,10 +11,7 @@ export default function NavBar() {
                 <div className="hidden md:flex">
                     <Logo />
                 </div>
-                <Button
-                    size="sm"
-                    className={"hidden h-auto rounded-sm px-2 py-1.5 md:block"}
-                >
+                <Button size="sm" className={"hidden h-auto rounded-sm px-2 py-1.5 md:block"}>
                     Create
                 </Button>
                 <Button size="sm" className={"block rounded-sm md:hidden"}>

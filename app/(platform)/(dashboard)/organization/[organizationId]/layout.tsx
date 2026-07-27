@@ -4,9 +4,7 @@ type TOrganizationLayoutProps = {
     children: React.ReactNode;
 };
 
-export default function OrganizationLayout({
-    children,
-}: TOrganizationLayoutProps) {
+export default function OrganizationIdLayout({ children }: TOrganizationLayoutProps) {
     return (
         <>
             <OrgControl />

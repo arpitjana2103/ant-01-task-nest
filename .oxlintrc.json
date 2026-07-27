@@ -1,14 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "plugins": [
-        "typescript",
-        "eslint",
-        "unicorn",
-        "react",
-        "import",
-        "oxc",
-        "nextjs"
-    ],
+    "plugins": ["typescript", "eslint", "unicorn", "react", "import", "oxc", "nextjs"],
     "categories": {
         "correctness": "error",
         "suspicious": "warn",
@@ -60,11 +52,5 @@
         "typeAware": true,
         "typeCheck": true
     },
-    "ignorePatterns": [
-        ".next",
-        "build",
-        "node_modules",
-        "next.config.ts",
-        "/components/ui/**"
-    ]
+    "ignorePatterns": [".next", "build", "node_modules", "next.config.ts", "/components/ui/**"]
 }
