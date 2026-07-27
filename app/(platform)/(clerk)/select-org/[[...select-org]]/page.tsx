@@ -1,6 +1,8 @@
 import { OrganizationList } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
-export default function CreateOrganizationPage() {
+export default async function CreateOrganizationPage() {
+    await auth.protect();
     return (
         <OrganizationList
             hidePersonal

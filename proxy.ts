@@ -58,9 +58,11 @@ export default clerkMiddleware(async function (auth: ClerkMiddlewareAuth, req: N
         return NextResponse.redirect(new URL("/select-org", req.url));
     }
 
+    /*
     if (isLoggedIn && hasOrg && pathname === "/select-org") {
         return NextResponse.redirect(new URL(`/organization/${orgId}`, req.url));
     }
+    */
 
     if (isLoggedIn && visitingPublicRoute) {
         const destination = hasOrg ? `/organization/${orgId}` : "/select-org";
