@@ -33,7 +33,7 @@ export default function MobileSidebar() {
             </Button>
             <Sheet open={isOpen} onOpenChange={onClose}>
                 <SheetContent side="left" className={"p-2 pt-10"}>
-                    <SideBar storageKey="t-sidebar-mobile-state" />{" "}
+                    <SideBar storageKey="key:org-sidebar-mobile" />{" "}
                 </SheetContent>
             </Sheet>
         </>

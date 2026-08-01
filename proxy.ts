@@ -1,7 +1,8 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import "urlpattern-polyfill";
 import type { ClerkMiddlewareAuth } from "@clerk/nextjs/server";
-import type { NextRequest } from "next/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 /************************************************************************************
 
@@ -42,8 +43,17 @@ import { NextResponse } from "next/server";
 
 ************************************************************************************/
 
+const PUBLIC_ROUTES = ["/", "/sign-in(.*)", "/sign-up(.*)"];
+
+const publicPatterns = PUBLIC_ROUTES.map(function (route) {
+    return new URLPattern({ pathname: route });
+});
+
 const isPublicRoute = function (pathname: string) {
-    return pathname === "/" || pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
+    console.log(publicPatterns);
+    return publicPatterns.some(function (pattern) {
+        return pattern.test({ pathname });
+    });
 };
 
 export default clerkMiddleware(async function (auth: ClerkMiddlewareAuth, req: NextRequest) {

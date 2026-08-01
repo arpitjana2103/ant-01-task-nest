@@ -1,5 +1,4 @@
 "use client";
-
 import { useOrganization, useOrganizationList } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -11,22 +10,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { SidebarNavItem } from "./sidebar-nav-item";
 
-// import SidebarNavItem from "./sidebar-nav-item";
-
 type TSidebarProps = {
-    storageKey?: string;
+    storageKey: string;
 };
 
-export default function SideBar({ storageKey = "t-sidebar-state" }: TSidebarProps) {
+export default function SideBar({ storageKey }: TSidebarProps) {
     const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {});
 
     const { organization: activeOrg, isLoaded: isOrgLoaded } = useOrganization();
     const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
         userMemberships: { infinite: true },
     });
-
-    console.log("Active ORG ", activeOrg);
-    // org_3H2hn04XperEWkARzCzgWU6F5G8
 
     const accordionValue: string[] = Object.keys(expanded).reduce(function (
         acc: string[],
@@ -61,8 +55,6 @@ export default function SideBar({ storageKey = "t-sidebar-state" }: TSidebarProp
             </>
         );
     }
-
-    console.log("userMemberships.Data", userMemberships.data);
 
     return (
         <>
