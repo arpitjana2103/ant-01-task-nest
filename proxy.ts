@@ -50,7 +50,6 @@ const publicPatterns = PUBLIC_ROUTES.map(function (route) {
 });
 
 const isPublicRoute = function (pathname: string) {
-    console.log(publicPatterns);
     return publicPatterns.some(function (pattern) {
         return pattern.test({ pathname });
     });

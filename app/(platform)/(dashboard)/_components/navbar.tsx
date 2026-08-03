@@ -1,12 +1,19 @@
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+"use client";
+
+import { OrganizationSwitcher, useOrganization, UserButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
+import { useParams } from "next/navigation";
 
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import MobileSidebar from "./mobile-sidebar";
 
 export default function NavBar() {
+    const { organization: activeOrg } = useOrganization();
+    const { organizationId } = useParams();
+    const isSwitching = activeOrg?.id !== organizationId;
     return (
         <nav className="fixed top-0 z-50 flex h-14 w-full items-center border-b bg-white px-4 shadow-sm">
             <MobileSidebar />
@@ -23,12 +30,15 @@ export default function NavBar() {
             </div>
 
             <div className="ml-auto flex items-center gap-x-2">
-                <OrganizationSwitcher
-                    hidePersonal
-                    afterCreateOrganizationUrl={"/organization/:id"}
-                    afterSelectOrganizationUrl={"/organization/:id"}
-                    afterLeaveOrganizationUrl="/select-org"
-                />
+                {isSwitching && <Skeleton className="h-7 w-30" />}
+                {!isSwitching && (
+                    <OrganizationSwitcher
+                        hidePersonal
+                        afterCreateOrganizationUrl={"/organization/:id"}
+                        afterSelectOrganizationUrl={"/organization/:id"}
+                        afterLeaveOrganizationUrl="/select-org"
+                    />
+                )}
                 <UserButton />
             </div>
         </nav>
