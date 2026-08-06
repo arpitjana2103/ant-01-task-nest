@@ -8,7 +8,7 @@
         "style": "off"
     },
     "rules": {
-        "eslint/no-unused-vars": "warn",
+        "eslint/no-unused-vars": "off",
         "eslint/no-underscore-dangle": "off",
         "eslint/func-style": "off",
         "eslint/no-magic-numbers": "off",
@@ -17,6 +17,7 @@
         "typescript/no-unsafe-type-assertion": "off",
         "typescript/no-explicit-any": "warn",
         "typescript/consistent-type-imports": "warn",
+        "typescript/no-unnecessary-type-assertion": "off",
 
         "unicorn/no-empty-file": "off",
         "unicorn/filename-case": "off",
