@@ -1,14 +1,38 @@
 import { z } from "zod";
 
-export type TErrorNode<T> = {
+export type TValidationError<T> = {
     errors: string[];
     properties?: {
-        [K in keyof T]?: TErrorNode<T[K]>;
+        [K in keyof T]?: TValidationError<T[K]>;
     };
 };
 
+/* TValidationError Example :
+    {
+        errors: [];
+        properties: {
+            name: {
+                errors: ["Name required"];
+            };
+            address: {
+                errors: [];
+
+                properties: {
+                    city: {
+                        errors: ["City required"];
+                    };
+
+                    zip: {
+                        errors: ["Invalid zip"];
+                    };
+                };
+            };
+        };
+    }
+*/
+
 export type TActionState<TInput, TOutput> = {
-    validationErrors?: TErrorNode<TInput>;
+    validationErrors?: TValidationError<TInput>;
     error?: string | null;
     data?: TOutput;
 };
@@ -22,7 +46,9 @@ export function createSafeAction<TInput, TOutput>(
 
         if (!validateionResult.success) {
             return {
-                validationErrors: z.treeifyError(validateionResult.error) as TErrorNode<TInput>,
+                validationErrors: z.treeifyError(
+                    validateionResult.error,
+                ) as TValidationError<TInput>,
             };
         }
 

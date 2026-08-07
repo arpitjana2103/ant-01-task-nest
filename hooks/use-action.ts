@@ -1,20 +1,20 @@
 import { useState, useCallback } from "react";
 
-import type { TActionState, TErrorNode } from "@/lib/create-safe-action";
+import type { TActionState, TValidationError } from "@/lib/create-safe-action";
 
 type Action<TInput, TOutput> = (data: TInput) => Promise<TActionState<TInput, TOutput>>;
 
-interface UseActionOptions<TOutput> {
+type UseActionOptions<TOutput> = {
     onSuccess?: (data: TOutput) => void;
     onError?: (error: string) => void;
     onComplete?: () => void;
-}
+};
 
-export const useAction = <TInput, TOutput>(
+export const useAction = function <TInput, TOutput>(
     action: Action<TInput, TOutput>,
     options: UseActionOptions<TOutput> = {},
-) => {
-    const [validationErrors, setValidationErrors] = useState<TErrorNode<TInput> | undefined>(
+) {
+    const [validationErrors, setValidationErrors] = useState<TValidationError<TInput> | undefined>(
         undefined,
     );
     const [error, setError] = useState<string | undefined>(undefined);
@@ -43,6 +43,8 @@ export const useAction = <TInput, TOutput>(
 
                 if (result.data) {
                     setData(result.data);
+                    setError(undefined);
+                    setValidationErrors(undefined);
                     options.onSuccess?.(result.data);
                 }
             } finally {
