@@ -80,11 +80,12 @@ export default function SideBar({ storageKey }: TSidebarProps) {
             >
                 {userMemberships.data.map(function (orgMembership) {
                     const organization = orgMembership.organization;
+                    const isActive = organization.id === activeOrg?.id;
                     return (
                         <SidebarNavItem
                             key={organization.id}
-                            organization={organization}
-                            isActive={organization.id === activeOrg?.id}
+                            organization={isActive && activeOrg ? activeOrg : organization}
+                            isActive={isActive}
                             isExpanded={expanded[organization.id] ?? false}
                         />
                     );
