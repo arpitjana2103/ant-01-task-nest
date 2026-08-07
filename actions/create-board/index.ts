@@ -36,4 +36,4 @@ const handler = async function (data: InputType): Promise<ReturnType> {
     }
 };
 
-export const createBoard = createSafeAction(CreateBoardSchema, handler);
+export const createBoardAction = createSafeAction(CreateBoardSchema, handler);

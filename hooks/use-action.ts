@@ -32,9 +32,7 @@ export const useAction = function <TInput, TOutput>(
                     return;
                 }
 
-                if (result.validationErrors) {
-                    setValidationErrors(result.validationErrors);
-                }
+                setValidationErrors(result.validationErrors);
 
                 if (result.error) {
                     setError(result.error);
@@ -43,8 +41,6 @@ export const useAction = function <TInput, TOutput>(
 
                 if (result.data) {
                     setData(result.data);
-                    setError(undefined);
-                    setValidationErrors(undefined);
                     options.onSuccess?.(result.data);
                 }
             } finally {
