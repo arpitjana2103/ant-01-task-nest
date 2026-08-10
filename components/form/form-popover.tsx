@@ -19,12 +19,14 @@ type TFormPopoverProps = {
     side?: "left" | "right" | "top" | "bottom";
     align?: "start" | "center" | "end";
     sideOffset?: number;
+    triggerBtn?: boolean;
 };
 export const FormPopover = function ({
     children,
     side = "bottom",
     align,
     sideOffset = 0,
+    triggerBtn = false,
 }: TFormPopoverProps) {
     const popoverCloseRef = useRef<HTMLButtonElement>(null);
     const router = useRouter();
@@ -53,7 +55,7 @@ export const FormPopover = function ({
 
     return (
         <Popover>
-            <PopoverTrigger render={children} nativeButton={false} />
+            <PopoverTrigger render={children} nativeButton={triggerBtn} />
             <PopoverContent
                 align={align}
                 className={"w-80 pt-3"}

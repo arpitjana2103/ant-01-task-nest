@@ -22,12 +22,12 @@ export default function NavBar() {
                 <div className="hidden md:flex">
                     <Logo />
                 </div>
-                <FormPopover align="start" side="bottom" sideOffset={18}>
+                <FormPopover align="start" side="bottom" sideOffset={18} triggerBtn={true}>
                     <Button size="sm" className={"hidden h-auto rounded-sm px-2 py-1.5 md:block"}>
                         Create
                     </Button>
                 </FormPopover>
-                <FormPopover align="start" side="bottom" sideOffset={18}>
+                <FormPopover align="start" side="bottom" sideOffset={18} triggerBtn={true}>
                     <Button size="sm" className={"block rounded-sm md:hidden"}>
                         <Plus className="h-4 w-4" />
                     </Button>
