@@ -57,6 +57,7 @@ export const SidebarNavItem = function ({
                     <div className="relative h-7 w-7">
                         <Image
                             fill
+                            sizes="107px"
                             src={organization.imageUrl}
                             alt="Organization"
                             className="rounded-sm object-cover"

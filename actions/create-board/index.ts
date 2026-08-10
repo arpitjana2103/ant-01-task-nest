@@ -11,7 +11,7 @@ import type { InputType, ReturnType } from "./types";
 
 const handler = async function (data: InputType): Promise<ReturnType> {
     await auth.protect();
-    const { userId } = await auth();
+    const { userId, orgId } = await auth();
 
     if (!userId) {
         return {
@@ -19,11 +19,33 @@ const handler = async function (data: InputType): Promise<ReturnType> {
         };
     }
 
-    const { title } = data;
+    if (!orgId) {
+        return {
+            error: "No organization selected for the User",
+        };
+    }
+
+    const { title, image } = data;
+
+    const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] = image.split("|");
+
+    if (!imageId || !imageThumbUrl || !imageFullUrl || !imageLinkHTML || !imageUserName) {
+        return {
+            error: "ImageFields missing. Failed to create board.",
+        };
+    }
 
     try {
         const newBoard = await prisma.board.create({
-            data: { title },
+            data: {
+                orgId: orgId,
+                title: title,
+                imageId: imageId,
+                imageThumbnail: imageThumbUrl,
+                imageFullUrl: imageFullUrl,
+                imageLinkHTML: imageLinkHTML,
+                imageUserName: imageUserName,
+            },
         });
         revalidatePath(`/boards/${newBoard.id}`);
         return {

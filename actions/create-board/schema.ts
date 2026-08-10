@@ -20,4 +20,16 @@ export const CreateBoardSchema = z.object({
                 });
             }
         }),
+    image: z
+        .string()
+        .trim()
+        .superRefine((value, ctx) => {
+            if (value.length === 0) {
+                ctx.addIssue({
+                    code: "custom",
+                    message: "Image is required",
+                });
+                return;
+            }
+        }),
 });

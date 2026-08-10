@@ -1,7 +1,8 @@
 "use client";
 
 import { X } from "lucide-react";
-import type { ReactElement } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, type ReactElement } from "react";
 
 import { createBoardAction } from "@/actions/create-board";
 import { useAction } from "@/hooks/use-action";
@@ -10,6 +11,7 @@ import { Button } from "../ui/button";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { toast } from "../ui/toast";
 import { FormInput } from "./form-input";
+import { FormPicker } from "./form-picker";
 import { FormSubmit } from "./form-submit";
 
 type TFormPopoverProps = {
@@ -24,16 +26,18 @@ export const FormPopover = function ({
     align,
     sideOffset = 0,
 }: TFormPopoverProps) {
+    const popoverCloseRef = useRef<HTMLButtonElement>(null);
+    const router = useRouter();
     const { execute, validationErrors } = useAction(createBoardAction, {
         onSuccess: function (data) {
-            console.log({ data });
             toast.add({
                 type: "success",
                 description: "Board created !",
             });
+            popoverCloseRef.current?.click();
+            router.push(`/board/${data?.id}`);
         },
         onError: function (error) {
-            console.log({ error });
             toast.add({
                 type: "error",
                 description: error,
@@ -43,7 +47,8 @@ export const FormPopover = function ({
 
     const onSubmit = async function (formData: FormData) {
         const title = formData.get("title") as string;
-        await execute({ title });
+        const image = formData.get("image") as string;
+        await execute({ title, image });
     };
 
     return (
@@ -59,6 +64,7 @@ export const FormPopover = function ({
                     Create Board
                 </div>
                 <PopoverClose
+                    ref={popoverCloseRef}
                     className={"absolute top-2 right-2 h-auto w-auto p-2 text-neutral-600"}
                     render={<Button variant="ghost" />}
                 >
@@ -66,6 +72,10 @@ export const FormPopover = function ({
                 </PopoverClose>
                 <form action={onSubmit} className="space-y-4">
                     <div className="space-y-4">
+                        <FormPicker
+                            id="image"
+                            validationErrors={validationErrors?.properties?.image?.errors}
+                        />
                         <FormInput
                             id="title"
                             label="Board title"

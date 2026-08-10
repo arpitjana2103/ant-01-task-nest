@@ -21,6 +21,7 @@ export const Info = function Info() {
             <div className="relative h-15 w-15">
                 <Image
                     fill
+                    sizes="107px"
                     src={activeOrg?.imageUrl || "https://picsum.photos/60/60"}
                     alt="ActiveOrg"
                     className="rounded-md object-cover"
