@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const Info = function Info() {
     const { organization: activeOrg, isLoaded: isOrgLoaded } = useOrganization();
-    const { organizationId } = useParams();
-    const isSwitching = activeOrg?.id !== organizationId;
+    const { organizationId: currOrgId } = useParams();
+    const isSwitching = activeOrg?.id !== currOrgId;
 
     if (!isOrgLoaded || isSwitching) {
         return <Info.Skeleton />;

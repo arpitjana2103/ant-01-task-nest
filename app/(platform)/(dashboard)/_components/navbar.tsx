@@ -13,8 +13,8 @@ import MobileSidebar from "./mobile-sidebar";
 
 export default function NavBar() {
     const { organization: activeOrg } = useOrganization();
-    const { organizationId } = useParams();
-    const isSwitching = activeOrg?.id !== organizationId;
+    const { organizationId: currOrgId } = useParams();
+    const isSwitching = activeOrg?.id !== currOrgId;
     return (
         <nav className="fixed top-0 z-50 flex h-14 w-full items-center border-b bg-white px-4 shadow-sm">
             <MobileSidebar />

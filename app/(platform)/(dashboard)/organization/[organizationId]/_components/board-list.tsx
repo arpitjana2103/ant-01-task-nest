@@ -8,16 +8,18 @@ import Hint from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import prisma from "@/lib/prisma";
 
-export default async function BoardList() {
-    const { orgId } = await auth();
-
-    if (!orgId) {
+export default async function BoardList({
+    activeOrgId,
+}: {
+    activeOrgId: string | null | undefined;
+}) {
+    if (!activeOrgId) {
         return redirect("/select-org");
     }
 
     const boards = await prisma.board.findMany({
         where: {
-            orgId: orgId,
+            orgId: activeOrgId,
         },
         orderBy: {
             createdAt: "desc",

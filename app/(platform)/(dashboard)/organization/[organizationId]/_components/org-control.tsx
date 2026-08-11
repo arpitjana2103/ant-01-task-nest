@@ -10,8 +10,11 @@ export default function OrgControl() {
 
     useEffect(
         function () {
-            if (!organizationId || !setActive) return;
-            void setActive({ organization: organizationId as string });
+            async function func() {
+                if (!organizationId || !setActive) return;
+                await setActive({ organization: organizationId as string });
+            }
+            void func();
         },
         [organizationId, setActive],
     );
