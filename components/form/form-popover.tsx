@@ -53,6 +53,14 @@ export const FormPopover = function ({
         await execute({ title, image });
     };
 
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const title = formData.get("title") as string;
+        const image = formData.get("image") as string;
+        void execute({ title, image });
+    };
+
     return (
         <Popover>
             <PopoverTrigger render={children} nativeButton={triggerBtn} />
@@ -72,7 +80,7 @@ export const FormPopover = function ({
                 >
                     <X className="h-4 w-4" />
                 </PopoverClose>
-                <form action={onSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-4">
                         <FormPicker
                             id="image"
